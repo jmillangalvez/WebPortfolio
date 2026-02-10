@@ -1,10 +1,11 @@
 :root {
-	--bg: #0f1720;
-	--card: #0f1720;
-	--surface: #0b1220;
-	--text: #e6eef6;
-	--muted: #9fb0c2;
-	--accent: #16a085; /* teal surprise color */
+	--bg: #ffffff;
+	--card: #ffffff;
+	--surface: #f8f9fa;
+	--text: #1a1a1a;
+	--muted: #4a5568;
+	--accent: #16a085; /* keeping the teal accent */
+	--border: #e2e8f0;
 	--max-width: 1100px;
 	--radius: 10px;
 	--gap: 16px;
@@ -37,15 +38,19 @@ body {
 	backdrop-filter: blur(6px);
 	position: sticky;
 	top: 0;
-	background: rgba(5, 10, 15, 0.35);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+	background: rgba(255, 255, 255, 0.95);
+	border-bottom: 1px solid var(--border);
+	z-index: 100;
+	height: 75px;
 }
 
 .header-inner {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 14px 24px;
+	padding: 0 32px;
+	height: 100%;
+	max-width: 100%;
 }
 
 .logo {
@@ -57,19 +62,26 @@ body {
 
 .nav {
 	display: flex;
-	gap: 12px;
+	gap: 32px;
+	margin-right: 0;
 }
 
 .nav a {
-	color: var(--muted);
+	color: var(--text);
 	text-decoration: none;
-	padding: 8px 10px;
-	border-radius: 8px;
+	padding: 0;
+	position: relative;
+	transition: all 0.2s ease;
+	font-weight: 500;
 }
 
 .nav a:hover {
-	color: var(--text);
-	background: rgba(255, 255, 255, 0.02);
+	color: var(--muted);
+}
+
+.nav a.active {
+	text-decoration: underline;
+	text-underline-offset: 4px;
 }
 
 .menu-toggle {
@@ -78,6 +90,7 @@ body {
 	border: 0;
 	color: var(--text);
 	font-size: 1.25rem;
+	cursor: pointer;
 }
 
 .hero {
@@ -88,6 +101,7 @@ body {
 .hero h1 {
 	font-size: clamp(28px, 6vw, 44px);
 	margin: 0 0 8px;
+	color: var(--text);
 }
 
 .hero p {
@@ -102,13 +116,20 @@ body {
 	padding: 10px 16px;
 	border-radius: 8px;
 	text-decoration: none;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(22, 160, 133, 0.3);
 }
 
 .about {
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+	background: var(--surface);
 	border-radius: 12px;
 	margin-top: 18px;
 	padding: 20px;
+	border: 1px solid var(--border);
 }
 
 /* Project detail layout: keep same page background and center content */
@@ -122,6 +143,7 @@ body {
 .project-detail h1 {
 	text-align: center;
 	margin-bottom: 18px;
+	color: var(--text);
 }
 
 .project-desc {
@@ -145,6 +167,8 @@ body {
 	border-radius: 10px;
 	object-fit: cover;
 	display: block;
+	border: 1px solid var(--border);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .gallery {
@@ -160,15 +184,22 @@ body {
 }
 
 .project-card {
-	width: 960px; /* approx three thumbnails combined */
+	width: 960px;
 	max-width: 100%;
-	height: 320px; /* same visual scale as photos */
+	height: 320px;
 	border-radius: 12px;
 	overflow: hidden;
 	display: flex;
 	margin: 0 auto;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+	background: var(--card);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	border: 1px solid var(--border);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .proj-media {
@@ -218,7 +249,7 @@ body {
 }
 
 .project-card:focus {
-	outline: 2px solid rgba(22, 160, 133, 0.18);
+	outline: 2px solid rgba(22, 160, 133, 0.4);
 	outline-offset: 3px;
 }
 
@@ -245,6 +276,7 @@ body {
 	aspect-ratio: 4/3;
 	border-radius: 8px;
 	transition: transform .25s ease;
+	border: 1px solid var(--border);
 }
 
 .thumb:hover img {
@@ -264,10 +296,12 @@ body {
 /* Make embedded videos match the photos' max width and be responsive */
 .video-wrap {
 	width: 100%;
-	max-width: 960px; /* same as .project-detail-img */
+	max-width: 960px;
 	margin: 0 auto;
-	border-radius: 8px; /* keep same visual rounding as images */
+	border-radius: 8px;
 	overflow: hidden;
+	border: 1px solid var(--border);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .video-wrap iframe {
@@ -282,6 +316,15 @@ body {
 	margin-top: 26px;
 }
 
+.contact a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+.contact a:hover {
+	text-decoration: underline;
+}
+
 .site-footer {
 	position: fixed;
 	left: 0;
@@ -293,9 +336,10 @@ body {
 	justify-content: center;
 	text-align: center;
 	color: var(--muted);
-	background: linear-gradient(180deg, rgba(5, 10, 15, 0.7), rgba(5, 10, 15, 0.85));
-	border-top: 1px solid rgba(255, 255, 255, 0.02);
+	background: rgba(255, 255, 255, 0.95);
+	border-top: 1px solid var(--border);
 	z-index: 40;
+	backdrop-filter: blur(6px);
 }
 
 /* make sure page content doesn't sit under the fixed footer */
@@ -310,8 +354,9 @@ main {
 	display: none;
 	align-items: center;
 	justify-content: center;
-	background: rgba(2, 6, 10, 0.8);
+	background: rgba(255, 255, 255, 0.95);
 	z-index: 9999;
+	backdrop-filter: blur(8px);
 }
 
 .lightbox[aria-hidden="false"] {
@@ -322,28 +367,43 @@ main {
 	max-width: 95%;
 	max-height: 85%;
 	border-radius: 8px;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .lb-close {
 	position: fixed;
 	top: 20px;
 	right: 20px;
-	background: transparent;
-	border: 0;
+	background: var(--surface);
+	border: 1px solid var(--border);
 	color: var(--text);
 	font-size: 22px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.lb-close:hover {
+	background: var(--border);
 }
 
 .lb-prev, .lb-next {
 	position: fixed;
 	top: 50%;
 	transform: translateY(-50%);
-	background: rgba(255, 255, 255, 0.04);
-	border: 0;
+	background: var(--surface);
+	border: 1px solid var(--border);
 	color: var(--text);
-	padding: 10px;
+	padding: 10px 14px;
 	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.lb-prev:hover, .lb-next:hover {
+	background: var(--border);
 }
 
 .lb-prev {
@@ -388,9 +448,9 @@ main {
 	max-width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+	background: var(--surface);
 	border-radius: 12px;
-	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+	border: 1px solid var(--border);
 	overflow: hidden;
 }
 
@@ -413,7 +473,7 @@ main {
 }
 
 .tab:hover {
-	background: rgba(255, 255, 255, 0.06);
+	background: rgba(22, 160, 133, 0.1);
 	color: var(--text);
 }
 
@@ -422,7 +482,7 @@ main {
 }
 
 .tab:focus {
-	outline: 2px solid rgba(22, 160, 133, 0.18);
+	outline: 2px solid rgba(22, 160, 133, 0.4);
 	outline-offset: -2px;
 }
 
