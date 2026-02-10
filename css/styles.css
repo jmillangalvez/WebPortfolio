@@ -1,0 +1,435 @@
+:root {
+	--bg: #0f1720;
+	--card: #0f1720;
+	--surface: #0b1220;
+	--text: #e6eef6;
+	--muted: #9fb0c2;
+	--accent: #16a085; /* teal surprise color */
+	--max-width: 1100px;
+	--radius: 10px;
+	--gap: 16px;
+	--footer-height: 72px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;
+	background: var(--bg);
+	color: var(--text);
+	-webkit-font-smoothing: antialiased;
+}
+
+.container {
+	max-width: var(--max-width);
+	margin: 0 auto;
+	padding: 24px;
+}
+
+.site-header {
+	backdrop-filter: blur(6px);
+	position: sticky;
+	top: 0;
+	background: rgba(5, 10, 15, 0.35);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.header-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 14px 24px;
+}
+
+.logo {
+	font-weight: 700;
+	color: var(--text);
+	text-decoration: none;
+	font-size: 1.05rem;
+}
+
+.nav {
+	display: flex;
+	gap: 12px;
+}
+
+.nav a {
+	color: var(--muted);
+	text-decoration: none;
+	padding: 8px 10px;
+	border-radius: 8px;
+}
+
+.nav a:hover {
+	color: var(--text);
+	background: rgba(255, 255, 255, 0.02);
+}
+
+.menu-toggle {
+	display: none;
+	background: none;
+	border: 0;
+	color: var(--text);
+	font-size: 1.25rem;
+}
+
+.hero {
+	padding: 60px 0;
+	text-align: center;
+}
+
+.hero h1 {
+	font-size: clamp(28px, 6vw, 44px);
+	margin: 0 0 8px;
+}
+
+.hero p {
+	color: var(--muted);
+	margin: 0 0 18px;
+}
+
+.cta {
+	display: inline-block;
+	background: var(--accent);
+	color: white;
+	padding: 10px 16px;
+	border-radius: 8px;
+	text-decoration: none;
+}
+
+.about {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+	border-radius: 12px;
+	margin-top: 18px;
+	padding: 20px;
+}
+
+/* Project detail layout: keep same page background and center content */
+.project-detail {
+	background: transparent;
+	border-radius: 0;
+	margin-top: 18px;
+	padding: 20px 0;
+}
+
+.project-detail h1 {
+	text-align: center;
+	margin-bottom: 18px;
+}
+
+.project-desc {
+	max-width: 920px;
+	margin: 0 auto 28px;
+	color: var(--muted);
+	text-align: center;
+}
+
+.project-image-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+	padding-top: 6px;
+}
+
+.project-detail-img {
+	width: 100%;
+	max-width: 960px;
+	border-radius: 10px;
+	object-fit: cover;
+	display: block;
+}
+
+.gallery {
+	margin-top: 26px;
+}
+
+/* Projects layout for photos page (vertical feed) */
+.projects-scroll {
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap);
+	padding: 8px 0 16px;
+}
+
+.project-card {
+	width: 960px; /* approx three thumbnails combined */
+	max-width: 100%;
+	height: 320px; /* same visual scale as photos */
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	margin: 0 auto;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.proj-media {
+	flex: 0 0 50%;
+	overflow: hidden;
+}
+
+.proj-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.proj-info {
+	flex: 1;
+	padding: 20px 24px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.proj-info h3 {
+	margin: 0 0 8px;
+	color: var(--text);
+}
+
+.proj-info p {
+	margin: 0;
+	color: var(--muted);
+	line-height: 1.45;
+}
+
+/* Remove default link underlines/colors for project card anchors */
+.project-card {
+	text-decoration: none;
+	color: inherit;
+}
+
+.project-card h3, .project-card p {
+	text-decoration: none;
+	color: inherit;
+}
+
+.project-card:visited {
+	color: inherit;
+}
+
+.project-card:focus {
+	outline: 2px solid rgba(22, 160, 133, 0.18);
+	outline-offset: 3px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: var(--gap);
+}
+
+.thumb {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	border-radius: 8px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.thumb img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	aspect-ratio: 4/3;
+	border-radius: 8px;
+	transition: transform .25s ease;
+}
+
+.thumb:hover img {
+	transform: scale(1.03);
+}
+
+.videos {
+	margin-top: 26px;
+}
+
+.video-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 16px;
+}
+
+/* Make embedded videos match the photos' max width and be responsive */
+.video-wrap {
+	width: 100%;
+	max-width: 960px; /* same as .project-detail-img */
+	margin: 0 auto;
+	border-radius: 8px; /* keep same visual rounding as images */
+	overflow: hidden;
+}
+
+.video-wrap iframe {
+	width: 100%;
+	aspect-ratio: 16/9;
+	height: auto;
+	border: 0;
+	display: block;
+}
+
+.contact {
+	margin-top: 26px;
+}
+
+.site-footer {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: var(--footer-height);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: var(--muted);
+	background: linear-gradient(180deg, rgba(5, 10, 15, 0.7), rgba(5, 10, 15, 0.85));
+	border-top: 1px solid rgba(255, 255, 255, 0.02);
+	z-index: 40;
+}
+
+/* make sure page content doesn't sit under the fixed footer */
+main {
+	padding-bottom: calc(var(--footer-height) + 24px);
+}
+
+/* Lightbox */
+.lightbox {
+	position: fixed;
+	inset: 0;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	background: rgba(2, 6, 10, 0.8);
+	z-index: 9999;
+}
+
+.lightbox[aria-hidden="false"] {
+	display: flex;
+}
+
+.lb-image {
+	max-width: 95%;
+	max-height: 85%;
+	border-radius: 8px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.lb-close {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background: transparent;
+	border: 0;
+	color: var(--text);
+	font-size: 22px;
+}
+
+.lb-prev, .lb-next {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(255, 255, 255, 0.04);
+	border: 0;
+	color: var(--text);
+	padding: 10px;
+	border-radius: 8px;
+}
+
+.lb-prev {
+	left: 20px;
+}
+
+.lb-next {
+	right: 20px;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+	.nav {
+		display: none;
+	}
+
+	.menu-toggle {
+		display: block;
+	}
+
+	.video-wrap iframe {
+		height: 220px;
+	}
+
+	.project-card {
+		width: 90%;
+		height: 260px;
+	}
+
+	.proj-media {
+		flex: 0 0 45%;
+	}
+}
+
+/* Tabs for filtering projects */
+.tablist {
+	display: flex;
+	gap: 0;
+	justify-content: center;
+	margin: 28px 0;
+	width: 960px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+	border-radius: 12px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+	overflow: hidden;
+}
+
+.tab {
+	flex: 1;
+	background: transparent;
+	border: 0;
+	color: var(--muted);
+	padding: 14px 20px;
+	cursor: pointer;
+	font-size: 1rem;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	text-align: center;
+}
+
+.tab[aria-selected="true"] {
+	background: var(--accent);
+	color: #fff;
+}
+
+.tab:hover {
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--text);
+}
+
+.tab[aria-selected="true"]:hover {
+	background: var(--accent);
+}
+
+.tab:focus {
+	outline: 2px solid rgba(22, 160, 133, 0.18);
+	outline-offset: -2px;
+}
+
+.projects-scroll.hidden {
+	display: none;
+}
+
+.project-card[hidden] {
+	display: none !important;
+}
