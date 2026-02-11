@@ -15,6 +15,8 @@ html, body {
 }
 
 body {
+	display: flex;
+	flex-direction: column;
 	margin: 0;
 	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, 'Helvetica Neue', Arial;
 	background: var(--bg);
@@ -32,13 +34,14 @@ body {
 	height: 75px;
 }
 
-.header-inner {
+.site-header .header-inner {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 32px;
 	height: 100%;
 	max-width: 100%;
+	margin: 0; /* Override .container's auto margins */
 }
 
 .logo {
@@ -90,6 +93,80 @@ body {
 	cursor: pointer;
 }
 
+main {
+	flex: 1 0 auto; /* Grow to fill available space */
+	display: flex;
+	flex-direction: column;
+}
+
+/* Container for page content */
+.container {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 24px;
+}
+
+/* Contact Page */
+.contact-intro {
+	padding: 40px 24px 20px;
+	max-width: 740px;
+	margin: 48px auto 0;
+	text-align: center;
+}
+
+.contact-intro p {
+	color: var(--muted);
+	line-height: 1.6;
+	margin: 0 0 16px;
+	font-size: 1.05rem;
+}
+
+.contact-details {
+	/* margin-top: auto pushes this to the bottom of the flex container (main) */
+	margin: auto auto 0;
+	padding: 32px 24px;
+	border-top: 1px solid var(--border);
+	text-align: center;
+	max-width: 960px;
+}
+
+.contact-details h2 {
+	font-size: 1.5rem;
+	margin: 0 0 24px;
+	color: var(--text);
+}
+
+.contact-info {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+}
+
+.contact-item {
+	display: flex;
+	align-items: baseline;
+	gap: 12px;
+	justify-content: center;
+}
+
+.contact-label {
+	font-weight: 600;
+	color: var(--text);
+	min-width: 100px;
+}
+
+.contact-item a {
+	color: var(--accent);
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.contact-item a:hover {
+	color: var(--muted);
+	text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 720px) {
 	.nav {
@@ -98,5 +175,14 @@ body {
 
 	.menu-toggle {
 		display: block;
+	}
+
+	.contact-item {
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.contact-label {
+		min-width: unset;
 	}
 }
