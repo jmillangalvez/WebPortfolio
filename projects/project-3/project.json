@@ -1,0 +1,8 @@
+{
+  "id": "project-3",
+  "title": "Vibrant Fashion Series",
+  "orientation": "portrait",
+  "aspectRatio": "4:3",
+  "thumbnail": "assets/thumbnail.jpg",
+  "link": "pages/photos/projects/project-3/index.html"
+}

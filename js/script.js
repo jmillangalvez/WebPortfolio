@@ -22,7 +22,12 @@ async function loadProjects() {
 	try {
 		// Get all project directories
 		const projectFolders = [
-			'project-1'
+			'project-1',
+			'project-2',
+			'project-3',
+			'project-4',
+			'project-5',
+			'project-6'
 		];
 		
 		const projects = [];
@@ -49,6 +54,9 @@ async function loadProjects() {
 			const card = createProjectCard(project);
 			grid.appendChild(card);
 		});
+		
+		// Recalculate grid layout
+		resizeAllGridItems();
 		
 	} catch (error) {
 		console.error('Error loading projects:', error);
@@ -91,10 +99,38 @@ function createProjectCard(project) {
 	return card;
 }
 
+// Recalculate grid item heights based on aspect ratio
+function resizeAllGridItems() {
+	const grid = document.querySelector('.masonry-grid');
+	if (!grid) return;
+
+	const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows')) || 10;
+	const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('gap')) || 0;
+
+	const items = grid.getElementsByClassName('project-card');
+
+	for (const item of items) {
+		const ratioStr = item.getAttribute('data-ratio');
+		if (!ratioStr) continue;
+
+		const [w, h] = ratioStr.split(':').map(Number);
+		const aspectRatio = w / h;
+
+		const width = item.getBoundingClientRect().width;
+		if (!width) continue;
+
+		const height = width / aspectRatio;
+		const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+
+		item.style.gridRowEnd = `span ${span}`;
+	}
+}
+
 // Initialize when DOM ready
 function init() {
 	initMobileMenu();
 	loadProjects();
+	window.addEventListener('resize', resizeAllGridItems);
 }
 
 if (document.readyState === 'loading') {
