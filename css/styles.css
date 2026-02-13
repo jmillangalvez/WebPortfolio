@@ -36,7 +36,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 50px;
+	padding: 0 40px;
 	height: 100%;
 	max-width: 100%;
 	margin: 0 auto;
@@ -53,7 +53,7 @@ body {
 }
 
 .logo-img {
-	height: 50px;
+	height: 30px;
 	width: auto;
 	object-fit: contain;
 }
@@ -99,7 +99,7 @@ main {
 
 /* Projects Section */
 .projects-section {
-	padding: 20px 0px 0px;
+	padding: 0px 0px 0px;
 	max-width: 1600px;
 	margin: 0 auto;
 	width: 100%;
@@ -216,10 +216,6 @@ main {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
 	}
-	
-	.hero-title {
-		font-size: 3rem;
-	}
 }
 
 @media (max-width: 768px) {
@@ -234,18 +230,6 @@ main {
 	
 	.projects-section {
 		padding: 32px 24px 60px;
-	}
-	
-	.hero-section {
-		padding: 60px 24px 40px;
-	}
-	
-	.hero-title {
-		font-size: 2.5rem;
-	}
-	
-	.hero-subtitle {
-		font-size: 0.85rem;
 	}
 	
 	.nav {
