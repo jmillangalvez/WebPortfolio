@@ -38,12 +38,7 @@ async function loadProjects() {
 		const projects = [];
 		const basePath = 'projects/';
 		const projectFolders = [
-			'project-1',
-			'project-2',
-			'project-3',
-			'project-4',
-			'project-5',
-			'project-6'
+			'ElCieloDeGranadaDesdeMiBalcon',
 		];
 
 		for (const folder of projectFolders) {
@@ -58,7 +53,7 @@ async function loadProjects() {
 		}
 
 		if (projects.length === 0) {
-			grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px;">No projects found in this category.</p>';
+			grid.innerHTML = '<p style="color:var(--muted)">No hay proyectos en esta categoría aún.</p>';
 			return;
 		}
 
@@ -70,7 +65,7 @@ async function loadProjects() {
 		resizeAllGridItems();
 
 	} catch (error) {
-		grid.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:40px;">Unable to load projects.</p>';
+		grid.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:40px;">No se pudieron cargar los proyectos.</p>';
 	}
 }
 
