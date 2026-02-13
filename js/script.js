@@ -28,8 +28,7 @@ function updateActiveNav() {
 async function loadProjects() {
 	const grid = document.getElementById('projects-grid');
 	if (!grid) return;
-	
-	// Get the current filter from URL hash
+
 	const hash = window.location.hash.slice(1) || 'all';
 	const categoryFilter = hash === 'all' ? null : hash;
 	
@@ -158,8 +157,7 @@ function init() {
 	initMobileMenu();
 	updateActiveNav();
 	loadProjects();
-	
-	// Listen for hash changes (when user clicks nav links)
+
 	window.addEventListener('hashchange', handleHashChange);
 	window.addEventListener('resize', resizeAllGridItems);
 }
