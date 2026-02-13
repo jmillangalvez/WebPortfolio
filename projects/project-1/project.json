@@ -1,6 +1,7 @@
 {
   "id": "project-1",
   "title": "Vibrant Fashion Series",
+  "category": "photo",
   "orientation": "portrait",
   "aspectRatio": "6:4",
   "thumbnail": "assets/thumbnail.jpg",
