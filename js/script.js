@@ -11,11 +11,12 @@ function initMobileMenu() {
 	}
 }
 
-async function loadProjects() {
+async function loadProjects(categoryFilter = null) {
 	const grid = document.getElementById('projects-grid');
 	if (!grid) return;
 	
 	grid.classList.add('loading');
+	grid.innerHTML = ''; // Clear the grid first
 
 	try {
 		const projectFolders = [
@@ -29,12 +30,28 @@ async function loadProjects() {
 
 		const projects = [];
 
+		// Determine the correct path based on current location
+		const isInSubfolder = window.location.pathname.includes('/pages/');
+		const basePath = isInSubfolder ? '../../projects/' : 'projects/';
+
+		console.log('Loading projects with filter:', categoryFilter);
+		console.log('Base path:', basePath);
+
 		for (const folder of projectFolders) {
 			try {
-				const response = await fetch(`projects/${folder}/project.json`);
+				const url = `${basePath}${folder}/project.json`;
+				console.log('Fetching:', url);
+				const response = await fetch(url);
 				if (response.ok) {
 					const projectData = await response.json();
-					projects.push(projectData);
+					console.log(`Project ${folder}:`, projectData.category);
+					// Apply category filter if specified
+					if (!categoryFilter || projectData.category === categoryFilter) {
+						projects.push(projectData);
+						console.log(`Added project ${folder}`);
+					}
+				} else {
+					console.warn(`Failed to fetch ${folder}: ${response.status}`);
 				}
 			} catch (err) {
 				console.warn(`Failed to load project: ${folder}`, err);
@@ -43,8 +60,15 @@ async function loadProjects() {
 
 		grid.classList.remove('loading');
 
+		console.log('Total projects after filter:', projects.length);
+
+		if (projects.length === 0) {
+			grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px;">No projects found in this category.</p>';
+			return;
+		}
+
 		projects.forEach(project => {
-			const card = createProjectCard(project);
+			const card = createProjectCard(project, isInSubfolder);
 			grid.appendChild(card);
 		});
 
@@ -58,7 +82,7 @@ async function loadProjects() {
 }
 
 
-function createProjectCard(project) {
+function createProjectCard(project, isInSubfolder = false) {
 	const card = document.createElement('a');
 	card.href = project.link;
 	card.className = 'project-card';
@@ -66,7 +90,10 @@ function createProjectCard(project) {
 	card.setAttribute('data-ratio', project.aspectRatio);
 
 	const img = document.createElement('img');
-	img.src = `projects/${project.id}/${project.thumbnail}`;
+	const imgPath = isInSubfolder 
+		? `../../projects/${project.id}/${project.thumbnail}`
+		: `projects/${project.id}/${project.thumbnail}`;
+	img.src = imgPath;
 	img.alt = project.title;
 	img.loading = 'lazy';
 
@@ -117,7 +144,19 @@ function resizeAllGridItems() {
 
 function init() {
 	initMobileMenu();
-	loadProjects();
+	
+	// Check if we're on a filtered page
+	const isVideosPage = window.location.pathname.includes('/pages/videos/');
+	const isPhotosPage = window.location.pathname.includes('/pages/photos/');
+	
+	if (isVideosPage) {
+		loadProjects('video');
+	} else if (isPhotosPage) {
+		loadProjects('photo');
+	} else {
+		loadProjects(); // No filter - show all projects
+	}
+	
 	window.addEventListener('resize', resizeAllGridItems);
 }
 
