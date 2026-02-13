@@ -31,11 +31,12 @@ async function loadProjects() {
 
 	const hash = window.location.hash.slice(1) || 'all';
 	const categoryFilter = hash === 'all' ? null : hash;
-	
-	grid.classList.add('loading');
+
 	grid.innerHTML = '';
 
 	try {
+		const projects = [];
+		const basePath = 'projects/';
 		const projectFolders = [
 			'project-1',
 			'project-2',
@@ -45,31 +46,16 @@ async function loadProjects() {
 			'project-6'
 		];
 
-		const projects = [];
-		const basePath = 'projects/';
-
-		console.log('Loading projects with filter:', categoryFilter);
-
 		for (const folder of projectFolders) {
-			try {
-				const url = `${basePath}${folder}/project.json`;
-				const response = await fetch(url);
-				if (response.ok) {
-					const projectData = await response.json();
-					if (!categoryFilter || projectData.category === categoryFilter) {
-						projects.push(projectData);
-					}
-				} else {
-					console.warn(`Failed to fetch ${folder}: ${response.status}`);
+			const url = `${basePath}${folder}/project.json`;
+			const response = await fetch(url);
+			if (response.ok) {
+				const projectData = await response.json();
+				if (!categoryFilter || projectData.category === categoryFilter) {
+					projects.push(projectData);
 				}
-			} catch (err) {
-				console.warn(`Failed to load project: ${folder}`, err);
 			}
 		}
-
-		grid.classList.remove('loading');
-
-		console.log('Total projects after filter:', projects.length);
 
 		if (projects.length === 0) {
 			grid.innerHTML = '<p style="text-align:center;color:var(--muted);padding:40px;">No projects found in this category.</p>';
@@ -84,8 +70,6 @@ async function loadProjects() {
 		resizeAllGridItems();
 
 	} catch (error) {
-		console.error('Error loading projects:', error);
-		grid.classList.remove('loading');
 		grid.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:40px;">Unable to load projects.</p>';
 	}
 }
