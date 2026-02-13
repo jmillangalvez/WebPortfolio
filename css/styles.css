@@ -128,7 +128,7 @@ main {
 
 .contact-intro {
 	padding: 40px 24px 20px;
-	max-width: 740px;
+	max-width: 50%;
 	margin: 48px auto 0;
 	text-align: center;
 }
@@ -181,6 +181,38 @@ main {
 .contact-item a:hover {
 	color: var(--muted);
 	text-decoration: underline;
+}
+
+.title {
+	text-align: center;
+	padding: 20px 20px 20px;
+}
+
+.subtitle {
+	max-width: 75%;
+	margin: 0px auto 0;
+	text-align: center;
+}
+
+.subtitle p {
+	color: var(--muted);
+	line-height: 1.6;
+	margin: 0 0 16px;
+	font-size: 1.05rem;
+}
+
+.photos {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 40px 0;
+}
+
+.photos img {
+	width: 75%;
+	height: auto;
+	object-fit: cover;
+	margin: 0 auto;
 }
 
 @media (max-width: 1200px) {
