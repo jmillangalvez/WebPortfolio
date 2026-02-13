@@ -1,24 +1,35 @@
 # Photography & Videography Portfolio with Dynamic Masonry Grid
 
-A responsive photography portfolio featuring a dynamic masonry grid layout that automatically adapts to different project sizes and screen widths.
+A responsive photography portfolio featuring a dynamic masonry grid layout with single-page filtering that automatically adapts to different project sizes and screen widths.
 
 ## Features
 
+- **Single-Page Filtering**: All projects displayed on one page with hash-based navigation (#all, #videos, #photos)
 - **Dynamic Masonry Grid**: Automatically loads and displays projects from the `/projects` directory
 - **Responsive Design**: 4 columns on desktop → 3 columns on tablet → 2 columns on mobile
 - **Flexible Project Sizes**: Supports various aspect ratios (portrait, landscape, square)
 - **Smooth Animations**: Hover effects and transitions for a polished feel
 - **Clean Typography**: Uses Crimson Pro (serif) and Work Sans (sans-serif) for an elegant look
 
+## How It Works
+
+The portfolio uses URL hash navigation to filter projects without page reloads:
+
+- **index.html#all** or **index.html** - Shows all projects (default)
+- **index.html#videos** - Shows only video projects
+- **index.html#photos** - Shows only photo projects
+
+When you click a navigation link, the page filters projects by category instantly without reloading.
+
 ## File Structure
 
 ```
 portfolio/
-├── index.html              # Home page with dynamic grid
+├── index.html              # Main page with filtering (all projects)
 ├── css/
 │   └── styles.css          # All styles including masonry grid
 ├── js/
-│   └── script.js           # Dynamic project loading logic
+│   └── script.js           # Dynamic filtering and project loading
 ├── assets/
 │   └── logo.png            # Site logo
 ├── projects/               # ⭐ All your projects go here
@@ -32,9 +43,7 @@ portfolio/
 │   │       └── thumbnail.jpg
 │   └── ...
 └── pages/
-    ├── photos/
-    ├── videos/
-    └── contact/
+    └── contact/            # Contact page
 ```
 
 ## Adding a New Project
@@ -49,13 +58,15 @@ portfolio/
    {
      "id": "my-new-project",
      "title": "My Amazing Project",
-     "category": "photography",
+     "category": "photo",
      "orientation": "portrait",
      "aspectRatio": "3:4",
      "thumbnail": "assets/thumbnail.jpg",
      "link": "pages/photos/projects/my-new-project/index.html"
    }
    ```
+
+   **Important:** The `category` field must be either `"photo"` or `"video"` for filtering to work.
 
 3. **Add your thumbnail image**:
    ```
@@ -71,9 +82,13 @@ portfolio/
    ];
    ```
 
-That's it! The grid will automatically display your new project.
+That's it! The grid will automatically display your new project and filter it correctly.
 
 ## Project.json Options
+
+### Category (Required for Filtering)
+- `"photo"` - Photography projects (shown in Photos filter)
+- `"video"` - Video projects (shown in Videos filter)
 
 ### Orientation
 - `"portrait"` - Vertical images
@@ -90,33 +105,37 @@ Common ratios and their grid spans:
 
 ### Example Configurations
 
-**Fashion Portrait**:
+**Fashion Portrait (Photo)**:
 ```json
 {
+  "category": "photo",
   "orientation": "portrait",
   "aspectRatio": "3:4"
 }
 ```
 
-**Product Shot**:
+**Product Video**:
 ```json
 {
+  "category": "video",
   "orientation": "portrait",
-  "aspectRatio": "2:3"
+  "aspectRatio": "9:16"
 }
 ```
 
 **Landscape Photo**:
 ```json
 {
+  "category": "photo",
   "orientation": "landscape",
   "aspectRatio": "16:9"
 }
 ```
 
-**Square Format**:
+**Square Video**:
 ```json
 {
+  "category": "video",
   "orientation": "square",
   "aspectRatio": "1:1"
 }
@@ -128,10 +147,10 @@ Common ratios and their grid spans:
 Edit CSS variables in `css/styles.css`:
 ```css
 :root {
-    --bg: #fafafa;           /* Background */
+    --bg: #ffffff;           /* Background */
     --text: #1a1a1a;         /* Text color */
-    --accent: #c9755f;       /* Accent color */
-    --border: #e5e5e5;       /* Borders */
+    --accent: #16a085;       /* Accent color */
+    --border: #e2e8f0;       /* Borders */
 }
 ```
 
@@ -173,6 +192,21 @@ npx serve
 
 Then open http://localhost:8000 in your browser.
 
+## How the Single-Page Filtering Works
+
+1. Navigation links use hash fragments (`#all`, `#videos`, `#photos`)
+2. JavaScript listens for hash changes using the `hashchange` event
+3. When the hash changes, the active nav link is updated
+4. Projects are filtered by the `category` field in their `project.json`
+5. The grid is reloaded with only matching projects
+6. All filtering happens instantly without page reloads
+
+This approach:
+- ✅ Simplifies the codebase (no duplicate pages)
+- ✅ Improves performance (no page navigation)
+- ✅ Makes the site feel like a modern single-page app
+- ✅ Eliminates complex path logic for subfolders
+
 ## How the Masonry Grid Works
 
 The grid uses CSS Grid with `grid-auto-rows: 10px` and dynamic row spanning based on aspect ratios:
@@ -187,12 +221,3 @@ The grid uses CSS Grid with `grid-auto-rows: 10px` and dynamic row spanning base
 - Chrome/Edge 89+
 - Firefox 88+
 - Safari 14.1+
-
-## Next Steps
-
-- Replace placeholder images with your actual work
-- Create individual project pages in `/pages/photos/projects/`
-- Update contact information in `/pages/contact/index.html`
-- Add more projects by following the structure above
-
-Enjoy showcasing your work! 📸
