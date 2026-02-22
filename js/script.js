@@ -39,6 +39,8 @@ async function loadProjects() {
 		const basePath = 'projects/';
 		const projectFolders = [
 			'ElCieloDeGranadaDesdeMiBalcon',
+			'CertamenBandaVictoria',
+			'Granada1922'
 		];
 
 		for (const folder of projectFolders) {

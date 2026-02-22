@@ -208,8 +208,15 @@ main {
 	padding: 40px 0;
 }
 
-.photos img {
+.photo-img {
 	width: 75%;
+	height: auto;
+	object-fit: cover;
+	margin: 0 auto;
+}
+
+.photo-img-port {
+	width: 50%;
 	height: auto;
 	object-fit: cover;
 	margin: 0 auto;

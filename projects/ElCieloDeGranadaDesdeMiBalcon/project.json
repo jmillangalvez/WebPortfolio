@@ -2,7 +2,7 @@
   "id": "ElCieloDeGranadaDesdeMiBalcon",
   "title": "El Cielo de Granada desde mi Balcón",
   "category": "photo",
-  "orientation": "portrait",
+  "orientation": "landscape",
   "aspectRatio": "6:4",
   "thumbnail": "assets/thumbnail.jpg",
   "link": "projects/ElCieloDeGranadaDesdeMiBalcon/index.html"

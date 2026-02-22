@@ -1,0 +1,9 @@
+{
+  "id": "CertamenBandaVictoria",
+  "title": "Certame de Bandas: Victoria",
+  "category": "photo",
+  "orientation": "portrait",
+  "aspectRatio": "4:6",
+  "thumbnail": "assets/thumbnail.png",
+  "link": "projects/CertamenBandaVictoria/index.html"
+}
